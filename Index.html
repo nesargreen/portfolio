@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Nesar | Digital Media Professional</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- CUSTOM THEME VARIABLES (Green, White, Gold) --- */
+        :root {
+            --primary-green: #064e3b; /* Emerald 900 */
+            --accent-gold: #d4af37;   /* Metallic Gold */
+            --light-gold: #fcd34d;    /* Amber 300 */
+            --bg-gradient-start: #022c22;
+            --bg-gradient-end: #065f46;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Deep Green Gradient Background */
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: #1f2937; /* Dark Gray text for readability on white */
+            min-height: 100vh;
+        }
+
+        /* --- 3D & SHINING EFFECTS --- */
+        
+        /* 3D Glassy/White Card Style */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.3), 
+                0 4px 6px -2px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 1px rgba(212, 175, 55, 0.3); /* Subtle Gold Border */
+            border-radius: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px); /* Lift up effect */
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.4), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.2),
+                inset 0 0 0 2px rgba(212, 175, 55, 0.6); /* Gold glow on hover */
+        }
+
+        /* Golden Text Shine Effect */
+        .gold-text-shine {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* 3D Button Style */
+        .btn-3d {
+            background: linear-gradient(to bottom, #10b981, #047857); /* Emerald Gradient */
+            border-bottom: 4px solid #064e3b; /* Darker green border for 3D depth */
+            color: white;
+            transition: all 0.1s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .btn-3d:active, .btn-3d.active {
+            transform: translateY(3px);
+            border-bottom-width: 0px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .btn-3d.active {
+            background: linear-gradient(to bottom, #d4af37, #b49325); /* Gold Gradient for Active */
+            border-bottom: 4px solid #856812;
+            color: #022c22; /* Dark Text */
+            border-bottom-width: 0px; /* Pressed look */
+            transform: translateY(3px);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); /* Glow */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #022c22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 5px;
+        }
+
+        /* Subtle Animation for Cards */
+        .fade-in-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* Tab Content Display */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- PRINT MEDIA STYLES (Keep Robust) --- */
+        @media print {
+            *, *::before, *::after {
+                background: transparent !important;
+                color: #000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                border-color: #ccc !important;
+            }
+            body { background: white !important; }
+            #print-button, .tab-nav-container, .tab-button, footer, #video { display: none !important; }
+            .tab-content { display: block !important; opacity: 1 !important; visibility: visible !important; margin-top: 10px !important; }
+            #video, #text { display: none !important; }
+            .glass-card { border: 1px solid #ddd !important; margin-bottom: 10px !important; page-break-inside: avoid; }
+            .grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+            /* Hide decorative elements in print */
+            .gold-text-shine { background: none !important; color: black !important; -webkit-text-fill-color: black !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8">
+
+    <div id="app" class="max-w-4xl mx-auto relative">
+
+        <!-- Decorative Background Glow -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-64 bg-yellow-500 rounded-full blur-[120px] opacity-20 -z-10 pointer-events-none"></div>
+
+        <!-- Header and Summary Section -->
+        <header class="relative text-center p-8 mb-10 glass-card fade-in-up" style="animation-delay: 0s;">
+            
+            <!-- Print Button (Styled Gold) -->
+            <button id="print-button" class="absolute top-4 right-4 px-4 py-2 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black text-sm font-bold rounded-xl shadow-lg transition duration-200 flex items-center transform hover:scale-[1.05] border border-yellow-300">
+                <i data-lucide="printer" class="w-4 h-4 text-black"></i>
+                <span class="ml-2 hidden sm:inline">Print CV</span>
+            </button>
+
+            <!-- Name and Title -->
+            <h1 class="text-5xl sm:text-6xl font-extrabold tracking-tight mb-2 gold-text-shine">Mohammad Nesar</h1>
+            <div class="h-1 w-32 mx-auto bg-gradient-to-r from-transparent via-yellow-500 to-transparent mb-4"></div>
+            <p class="text-xl sm:text-2xl font-semibold text-emerald-800 tracking-wide">Digital Growth Editor & Content Creator</p>
+
+            <!-- Contact Information -->
+            <div class="flex flex-wrap justify-center gap-4 text-sm font-medium text-gray-600 mt-6">
+                
+                <!-- WhatsApp -->
+                <a href="https://wa.me/8801315882171" target="_blank" class="flex items-center px-3 py-1 bg-green-50 rounded-full border border-green-200 hover:bg-green-100 hover:text-green-700 transition shadow-sm">
+                    <svg class="w-4 h-4 mr-2 fill-current text-green-600" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.04 2C6.58 2 2 6.47 2 11.97c0 1.76.46 3.44 1.25 4.9L2.01 22l5.22-1.39c1.42.79 3.03 1.25 4.81 1.25 5.46 0 9.94-4.47 9.94-9.94 0-5.49-4.47-9.94-9.94-9.94zm4.13 13.55l-.26.43c-.22.36-.67.45-1.05.21-.86-.54-2.12-1.31-3.6-2.82-1.2-1.2-2.02-2.37-2.5-3.32-.29-.6.04-1.07.41-1.38l.4-.41c.21-.21.29-.49.4-.73l.2-.42c.11-.23.05-.49-.13-.67L9.04 8.2c-.32-.32-.87-.72-1.22-.72s-.88.16-1.35.65c-.49.52-.94 1.23-1.07 1.83-.14.64.01 1.74.83 3.47 1.15 2.42 2.87 4.13 5.02 5.37.58.32 1.09.47 1.54.55.51.09 1.1-.06 1.48-.48.3-.34.78-1.2.78-1.74 0-.54-.3-.81-.59-1.08z"/>
+                    </svg> 
+                    +8801315882171
+                </a>
+                
+                <!-- Email -->
+                <a href="mailto:nesarcfb@gmail.com" class="flex items-center px-3 py-1 bg-blue-50 rounded-full border border-blue-200 hover:bg-blue-100 hover:text-blue-700 transition shadow-sm">
+                    <i data-lucide="mail" class="w-4 h-4 mr-2 text-blue-600"></i> nesarcfb@gmail.com
+                </a>
+                
+                <!-- Facebook -->
+                <a href="https://facebook.com/nesarbangla" target="_blank" class="flex items-center px-3 py-1 bg-indigo-50 rounded-full border border-indigo-200 hover:bg-indigo-100 hover:text-indigo-700 transition shadow-sm">
+                    <i data-lucide="facebook" class="w-4 h-4 mr-2 text-indigo-600"></i> Facebook
+                </a>
+            </div>
+            
+            <hr class="my-6 border-yellow-500/30 w-3/4 mx-auto">
+
+            <!-- Professional Summary -->
+            <section class="text-left text-gray-700 leading-relaxed px-4">
+                <h2 class="text-2xl font-bold mb-3 text-emerald-900 border-l-4 border-yellow-500 pl-3">Professional Summary</h2>
+                <p>A dedicated and results-driven digital media professional with strong expertise in content creation, digital platform management, and television production. Skilled in developing digital growth strategies, crafting engaging scripts, delivering clear voice-overs, and designing compelling graphics using Canva. Adept at analyzing audience insights to optimize performance and maximize engagement. Passionate about leveraging creativity and digital knowledge to contribute effectively as a Content Creator or Digital Media Manager.</p>
+            </section>
+        </header>
+        
+        <!-- Main Content Area -->
+        <main class="mt-8 fade-in-up" style="animation-delay: 0.2s;">
+            
+            <!-- Tab Navigation (3D Buttons) -->
+            <div class="tab-nav-container flex flex-wrap justify-center sm:justify-start gap-4 mb-8 sticky top-4 z-20 p-2 rounded-2xl bg-emerald-900/90 backdrop-blur shadow-2xl border border-yellow-500/50">
+                <button class="tab-button btn-3d px-6 py-2 rounded-xl text-sm font-bold uppercase tracking-wide active" data-tab="experience">Work Experience</button>
+                <button class="tab-button btn-3d px-6 py-2 rounded-xl text-sm font-bold uppercase tracking-wide" data-tab="skills">Core Skills</button>
+                <button class="tab-button btn-3d px-6 py-2 rounded-xl text-sm font-bold uppercase tracking-wide" data-tab="education">Education</button>
+                <button class="tab-button btn-3d px-6 py-2 rounded-xl text-sm font-bold uppercase tracking-wide" data-tab="video">Video Portfolio</button>
+            </div>
+
+            <!-- 1. Work Experience Tab Content -->
+            <section id="experience" class="tab-content active">
+                <div class="flex items-center mb-6">
+                    <div class="p-2 bg-yellow-100 rounded-lg mr-3 shadow-md border border-yellow-400">
+                        <i data-lucide="briefcase" class="w-6 h-6 text-yellow-700"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white drop-shadow-md">Experience Timeline</h2>
+                </div>
+                
+                <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:h-full before:w-1 before:bg-yellow-500/50 before:transform before:translate-x-[-50%]">
+                    
+                    <!-- Job 1 -->
+                    <div class="relative pl-12 fade-in-up" style="animation-delay: 0.3s;">
+                        <!-- Timeline Dot -->
+                        <div class="absolute w-6 h-6 bg-emerald-600 rounded-full mt-1.5 -left-2.5 border-4 border-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.6)] z-10"></div>
+                        
+                        <!-- Card -->
+                        <div class="glass-card p-6 border-l-8 border-emerald-600">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                                <h3 class="text-xl font-bold text-emerald-900">Digital Growth Editor</h3>
+                                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full shadow-inner">2024 – Present</span>
+                            </div>
+                            <p class="text-lg font-semibold text-yellow-600 mb-2">Bangladesher Khobor (Daily Newspaper)</p>
+                            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 marker:text-yellow-500">
+                                <li>Leading digital growth strategies for the newspaper's <strong>Digital Edition</strong>.</li>
+                                <li>Developing and implementing content strategies for digital platforms.</li>
+                                <li>Applying <strong>growth hacking techniques</strong> by analyzing audience metrics.</li>
+                                <li>Enhancing content reach and visibility through <strong>SEO</strong> and social media trend analysis.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Job 2 -->
+                    <div class="relative pl-12 fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="absolute w-6 h-6 bg-white rounded-full mt-1.5 -left-2.5 border-4 border-emerald-500 z-10"></div>
+                        
+                        <div class="glass-card p-6 border-l-8 border-gray-400">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Scheduler (Drama Section)</h3>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full shadow-inner">2023 – 2024</span>
+                            </div>
+                            <p class="text-lg font-semibold text-yellow-600 mb-2">Deepto Television</p>
+                            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 marker:text-gray-400">
+                                <li>Managed and maintained the daily and weekly program schedules for the Drama section, focusing on Daily Soaps.</li>
+                                <li>Coordinated effectively with production teams to ensure smooth broadcasting operations.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 3 -->
+                    <div class="relative pl-12 fade-in-up" style="animation-delay: 0.5s;">
+                        <div class="absolute w-6 h-6 bg-white rounded-full mt-1.5 -left-2.5 border-4 border-emerald-500 z-10"></div>
+                        
+                        <div class="glass-card p-6 border-l-8 border-gray-400">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Digital Content Manager</h3>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full shadow-inner">2020 – 2022</span>
+                            </div>
+                            <p class="text-lg font-semibold text-yellow-600 mb-2">Youth Foundation of Bangladesh (YFB)</p>
+                            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 marker:text-gray-400">
+                                <li>Created and managed content for the organization's digital platforms (social media, website).</li>
+                                <li>Designed and developed video and graphic content using <strong>Canva</strong>.</li>
+                                <li>Planned and executed digital campaigns to boost online presence.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                     <!-- Job 4 -->
+                    <div class="relative pl-12 fade-in-up" style="animation-delay: 0.6s;">
+                        <div class="absolute w-6 h-6 bg-white rounded-full mt-1.5 -left-2.5 border-4 border-emerald-500 z-10"></div>
+                        
+                        <div class="glass-card p-6 border-l-8 border-gray-400">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2">
+                                <h3 class="text-xl font-bold text-gray-800">Scheduler & Assistant Director</h3>
+                                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full shadow-inner">2015 – 2020</span>
+                            </div>
+                            <p class="text-lg font-semibold text-yellow-600 mb-2">Deepto Television</p>
+                            <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1 marker:text-gray-400">
+                                <li>Served as an Assistant Director for various television productions (dramas, reality shows).</li>
+                                <li>Provided key support in production scheduling, budgeting, and team management.</li>
+                                <li>Coordinated with the team to ensure smooth flow in production and post-production.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Core Skills Tab Content -->
+            <section id="skills" class="tab-content">
+                <div class="flex items-center mb-6">
+                    <div class="p-2 bg-yellow-100 rounded-lg mr-3 shadow-md border border-yellow-400">
+                        <i data-lucide="cpu" class="w-6 h-6 text-yellow-700"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white drop-shadow-md">Core Expertise</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Skill Card 1 -->
+                    <div class="glass-card p-6 fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="flex items-center mb-4 text-emerald-700 border-b border-gray-200 pb-2">
+                            <i data-lucide="feather" class="w-6 h-6 mr-2"></i>
+                            <h3 class="text-xl font-bold">Content Creation</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Script Writing</p>
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Content Visualization</p>
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Voice-over</p>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card 2 -->
+                    <div class="glass-card p-6 fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="flex items-center mb-4 text-emerald-700 border-b border-gray-200 pb-2">
+                            <i data-lucide="trending-up" class="w-6 h-6 mr-2"></i>
+                            <h3 class="text-xl font-bold">Digital Growth</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Professional Digital Content Management</p>
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Audience Metrics Analysis & SEO</p>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card 3 -->
+                    <div class="glass-card p-6 fade-in-up" style="animation-delay: 0.5s;">
+                        <div class="flex items-center mb-4 text-emerald-700 border-b border-gray-200 pb-2">
+                            <i data-lucide="palette" class="w-6 h-6 mr-2"></i>
+                            <h3 class="text-xl font-bold">Design & Tech</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Graphic Design (Canva, Photoshop)</p>
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> AI Tools for Content</p>
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> WordPress (Web Developer)</p>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card 4 -->
+                    <div class="glass-card p-6 fade-in-up" style="animation-delay: 0.6s;">
+                        <div class="flex items-center mb-4 text-emerald-700 border-b border-gray-200 pb-2">
+                            <i data-lucide="workflow" class="w-6 h-6 mr-2"></i>
+                            <h3 class="text-xl font-bold">Production</h3>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Strategic Planning</p>
+                            <p class="text-gray-700 flex items-center font-medium"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-500 fill-current"></i> Team Building & Coordination</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Education & Projects Tab Content -->
+            <section id="education" class="tab-content">
+                <div class="flex items-center mb-6">
+                    <div class="p-2 bg-yellow-100 rounded-lg mr-3 shadow-md border border-yellow-400">
+                        <i data-lucide="graduation-cap" class="w-6 h-6 text-yellow-700"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white drop-shadow-md">Education & Projects</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    
+                    <!-- Education -->
+                    <div class="glass-card p-6 fade-in-up border-t-4 border-emerald-500" style="animation-delay: 0.3s;">
+                        <h3 class="text-2xl font-bold mb-2 text-emerald-900 flex items-center">
+                             Educational Qualification
+                        </h3>
+                        <p class="text-xl font-bold text-yellow-700">B.A (Honours) in Film, Television and Digital Media</p>
+                        <p class="text-gray-600 font-medium">Green University of Bangladesh (2018)</p>
+                    </div>
+
+                    <!-- Training -->
+                    <div class="glass-card p-6 fade-in-up border-t-4 border-emerald-500" style="animation-delay: 0.4s;">
+                        <h3 class="text-2xl font-bold mb-2 text-emerald-900 flex items-center">
+                             Training & Certification
+                        </h3>
+                        <p class="text-xl font-bold text-yellow-700">Professional Digital Content Management</p>
+                        <p class="text-gray-600 font-medium">Samaira Skill Development Institute (SSDI)</p>
+                        <div class="mt-2 inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-sm font-semibold">Multiple Courses on AI Tools</div>
+                    </div>
+
+                    <!-- Project -->
+                    <div class="glass-card p-6 fade-in-up border-t-4 border-emerald-500" style="animation-delay: 0.5s;">
+                        <h3 class="text-2xl font-bold mb-2 text-emerald-900 flex items-center">
+                             Relevant Project
+                        </h3>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xl font-bold text-yellow-700">Sadka (Short Film)</p>
+                                <p class="text-gray-600 font-medium">Role: Writer and Director</p>
+                            </div>
+                            <div class="p-3 bg-emerald-100 rounded-full">
+                                <i data-lucide="film" class="w-6 h-6 text-emerald-700"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 4. Video Content Tab Content -->
+            <section id="video" class="tab-content">
+                <div class="flex items-center mb-6">
+                    <div class="p-2 bg-red-100 rounded-lg mr-3 shadow-md border border-red-400">
+                        <i data-lucide="youtube" class="w-6 h-6 text-red-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white drop-shadow-md">Video Portfolio</h2>
+                </div>
+
+                <div class="glass-card p-6 fade-in-up" style="animation-delay: 0.3s;">
+                    <p class="text-gray-700 mb-6 font-medium border-l-4 border-red-500 pl-3">
+                        নিচের লিঙ্কগুলিতে ক্লিক করে আমার কাজগুলো দেখতে পারেন:
+                    </p>
+                    
+                    <div class="space-y-4">
+                        
+                        <!-- Video Link 1 -->
+                        <a href="https://youtu.be/6TitapQB5ck?si=mxURFWN5_fUq-OcQ" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                            <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">১। ঢাকার বুকে যেন এক ‘অডিও টাইম মেশিন’</h4>
+                                <p class="text-sm text-gray-500 mt-1 truncate max-w-xs sm:max-w-md">https://youtu.be/6TitapQB5ck</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Video Link 2 -->
+                        <a href="https://www.youtube.com/watch?v=yOvrd1aQBr4" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                            <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">২। জাবালে নূর - ঐশ্বরিক মোহের পাহাড়</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=yOvrd1aQBr4</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Video Link 3 -->
+                        <a href="https://www.youtube.com/watch?v=C3Xg1QU61g0" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                            <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৩। ঢাকার সবচেয়ে আলোচিত ফুড স্পট : নীলা মার্কেট</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=C3Xg1QU61g0</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Video Link 4 -->
+                        <a href="https://www.youtube.com/watch?v=sQ4-EF1XWSs" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৪। ফ্রী-তে শিখুন রোবটিক্স-ঢাকাতেই</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=sQ4-EF1XWSs</p>
+                            </div>
+                        </a>
+
+                        <!-- Video Link 5 -->
+                        <a href="https://www.youtube.com/watch?v=nr3U-FCkX_0" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৫। কি রহস্য জিন পাহাড়ে?</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=nr3U-FCkX_0</p>
+                            </div>
+                        </a>
+                        
+                         <!-- Video Link 6 -->
+                        <a href="https://www.youtube.com/watch?v=Twmj_9v_5zI" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৬। লালবাগ কেল্লায় রহস্যের অভিযানে</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=Twmj_9v_5zI</p>
+                            </div>
+                        </a>
+                        
+                         <!-- Video Link 7 -->
+                        <a href="https://youtu.be/hlRq7HuPwYo?si=kDjbyBbCNIZxhhC2" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৭। এআই কোর্স : গুরত্ব ও সাবধানতা</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://youtu.be/hlRq7HuPwYo?si=kDjbyBbCNIZxhhC2</p>
+                            </div>
+                        </a>
+
+                        <!-- Video Link 8 -->
+                         <a href="https://www.youtube.com/watch?v=bI6CphrVV3Q" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৮। অফিসে এআই : কাজের গতি বাড়ানোর স্মার্ট উপায়</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=bI6CphrVV3Q</p>
+                            </div>
+                        </a>
+
+                        <!-- Video Link 9 -->
+                        <a href="https://www.youtube.com/watch?v=aDb6S0R5Ypo" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">৯। ভূতের অনুসন্ধানকারীই যেন ধরা দিল ভূতের হাতে</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=aDb6S0R5Ypo</p>
+                            </div>
+                        </a>
+
+                        <!-- Video Link 10 -->
+                        <a href="https://www.youtube.com/watch?v=Jqjlr1NFVOQ" target="_blank" class="flex items-start p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-yellow-400 hover:shadow-md transition duration-200 group">
+                             <div class="mt-1 mr-4 text-red-600 group-hover:scale-110 transition-transform">
+                                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-800 group-hover:text-red-600 transition-colors">১০। ইলন মাস্ক ট্রাম্প প্রশাসনকে জানালেন বিদায়</h4>
+                                <p class="text-sm text-gray-500 mt-1">https://www.youtube.com/watch?v=Jqjlr1NFVOQ</p>
+                            </div>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-12 pt-6 border-t border-emerald-800 text-center text-sm text-emerald-200/50 fade-in-up" style="animation-delay: 0.8s;">
+            <p>Developed from the Curriculum Vitae of Mohammad Nesar. <span class="text-yellow-500">Professional Profile, 2024.</span></p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for Tab Switching and Print Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const printButton = document.getElementById('print-button'); 
+
+            /**
+             * Handles the logic for switching between content tabs.
+             * @param {string} targetId - The ID of the tab content to show (e.g., 'experience').
+             */
+            function switchTab(targetId) {
+                // Remove 'active' class from all buttons and content
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // Add 'active' class to the clicked button
+                const activeButton = document.querySelector(`.tab-button[data-tab="${targetId}"]`);
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                }
+
+                // Add 'active' class to the target content, triggering the fadeIn animation
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            }
+
+            // Add click listener to all tab buttons
+            tabButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const targetTab = event.currentTarget.getAttribute('data-tab');
+                    switchTab(targetTab);
+                });
+            });
+            
+            // Add click listener to the Print Button 
+            if (printButton) {
+                printButton.addEventListener('click', () => {
+                    window.print();
+                });
+            }
+
+            // Initial setup: Ensure the first tab is active on load
+            if (tabButtons.length > 0) {
+                switchTab(tabButtons[0].getAttribute('data-tab'));
+            }
+
+            // Optional: Add fade-in for all sections
+            const sections = document.querySelectorAll('.fade-in-up');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${0.3 + index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
